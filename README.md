@@ -72,7 +72,7 @@ for(i in 1:15){
   data$high=ifelse(data$ru>1,1-1/data$ru^4,0)
   
   colnames(data)[which(names(data) == "reporter")] <- "exporter"
-  # We define an agri dummy to distinguish the agriculture trade from the rest
+  # We define an agri dummy to distinguish the agricultural trade from the rest
   data$agridummy=ifelse(substr(data$hs6_96,1,2)<25, 1,  ##The substr() function is structured as substr(x, start, stop) where start and stop are the first and last characters to be extracted, respectively.
                         ifelse(data$hs6_96=="290543", 1, 
                                ifelse(data$hs6_96=="290544", 1,
