@@ -124,11 +124,17 @@ dfa=na.omit(dfa)
 
 ################################################    REGRESSION   ########################################################
 ################################################    REGRESSION   ########################################################
+ # First we pick the countries above the third quartile in 2014
+dat=subset(dfa, yr=="2014")
+quant80=quantile(dat$v, c(.83), na.rm=TRUE)
+quant80=unname(quant80)
+dat = subset(dat,v>=quant80)
+dat1=select(dat, exporter)
+selectedRows <- (dat$exporter %in% dat1$exporter)
 dat=dfa
-selectedRows <- (dat$exporter %in% condf1$exporter) # where condf1 is taken from Specialization Index Calculation script
 dat=dat[selectedRows,]
-dat$lgdp=log(dat$gdp) # Creating a column with log gdp values
 
+dat$lgdp=log(dat$gdp) # Creating a column with log gdp values
 
 fit=lm(sharehigh ~ log(gdp)+yr, data = dat)
 fit
